@@ -48,7 +48,7 @@ function App() {
 
 
   const getDrunkTextFormat = (value) => {
-    if (value === 1) {
+    if (value == 1) {
       return "Drunk with 100% certainty"
     } else if (value === 0) {
       return "Sober with 100% certainty"
@@ -154,6 +154,7 @@ function App() {
           //     console.log("Klucz: " + key + ", Wartość: " + value);
           // }
           setMyVar(getDrunkTextFormat(parsed));
+          renderHistory()
 
         } else {
           console.log("localStorage spadl z rowerka");
