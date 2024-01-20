@@ -42,8 +42,9 @@ function App() {
         console.log(response);
         const data = await response.json();
         const parsed = JSON.parse(data.success);
-        setResults(parsed.faces[0].attributes);
-        setResponse(data.success);
+        console.log(parsed);
+        setResults(parsed?.faces[0]?.attributes);
+        setResponse(data?.success);
         console.log(JSON.stringify(parsed));
 
         const drunkResponse = await fetch(
