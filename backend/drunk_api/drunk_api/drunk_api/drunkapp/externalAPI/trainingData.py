@@ -15,10 +15,8 @@ API_ENDPOINT_PARAMETERS = "https://api-us.faceplusplus.com/facepp/v3/detect"
 
 API_ENDPOINT_METRICS = "https://api-us.faceplusplus.com/facepp/v3/face/analyze"
 
-# your API key here
-API_KEY = "kIUCMuGnUQd6IubuCqgIrBlDybZAq3HY"
-
-API_SECRET_KEY = "APjSP3feDjklNt27__tkKnqiOAsQymmV"
+API_KEY = "kWrguZ5SdMTCWh9g2j3SPK-poWJyVqbW"
+API_SECRET_KEY = "egjfvTB20hNq7EbgFg4PvJf_UlMcsp1V"
 
 imageURLS = []
 noSpacesImageURLS = []

@@ -9,7 +9,10 @@ import tensorflow as tf
 
 def are_you_drunk(input_json):
     print(input_json)
-    input_json = json.load(input_json)
+    print(type(input_json))
+    input_json = json.loads(json.loads(input_json))
+    print("TEST KURWA FACES CO JEST")
+    print(input_json['faces'])
     types = ['landmark', 'attributes']
     mask = ['headpose']
 
@@ -24,13 +27,16 @@ def are_you_drunk(input_json):
     def format_row_new(set):
         result = []
         for type in types:
-            #print("MODULE: " + set)
+            print("MODULE: " + set)
+            ##print keys of the dict
+            print(set['faces'][0][type].keys())        
+            print(set['faces'][0][type])
             for metric in set['faces'][0][type]:
                 if isinstance(set['faces'][0][type][metric], dict):
                     for v in set['faces'][0][type][metric]:
                         if isinstance(set['faces'][0][type][metric][v], dict):
                             for w in set['faces'][0][type][metric][v]:
-                                # print(type + '_' + metric + '_' + v + '_' + w + " = " + str(set['faces'][0][type][metric][v][w]))
+                                print(type + '_' + metric + '_' + v + '_' + w + " = " + str(set['faces'][0][type][metric][v][w]))
                                 adders = set['faces'][0][type][metric][v][w]
                                 if (w == "stain"):
                                     afirmative_action *= 0.85 + \
@@ -57,7 +63,7 @@ def are_you_drunk(input_json):
     fancy_model = tf.keras.models.load_model('models/baseline_0.h5')
 
     # make a prediction:
-    # print(np.array(format_row_new(input_json)))
+    print((format_row_new(input_json)))
     yhat = fancy_model.predict(np.array([format_row_new(input_json)]))
 
     return min(yhat[0][0] * affirmative_action, 1)
