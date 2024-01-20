@@ -73,7 +73,7 @@ function App() {
       return (
         <Box>
           <Text pt="24px">History: </Text>
-          {history.map(({key, value}) => {
+          {history.sort((a,b) => b.key - a.key).slice(0, 5).map(({key, value}) => {
             return (
               <Text pt="24px">{moment(parseInt(key)).fromNow()} {getDrunkTextFormat(value)}</Text>
             )
