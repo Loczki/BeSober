@@ -48,9 +48,9 @@ function App() {
 
 
   const getDrunkTextFormat = (value) => {
-    if (value == 1) {
+    if (value === 1) {
       return "Drunk with 100% certainty"
-    } else if (value == 0) {
+    } else if (value === 0) {
       return "Sober with 100% certainty"
     } else {
       return "Most likely sober"
