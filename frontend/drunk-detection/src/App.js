@@ -14,6 +14,8 @@ import {
   Image,
 } from "@chakra-ui/react";
 import Webcam from "react-webcam";
+//moment
+import moment from "moment";
 
 function dataURLtoFile(dataurl, filename) {
   var arr = dataurl.split(','),
@@ -44,9 +46,44 @@ function App() {
     submitForm(dataURLtoFile(imageSrc, 'image.jpg'));
   }, [webcamRef]);
 
-  const submitFormWithInput = async () => {
-    submitForm(input);
-  };
+
+  const getDrunkTextFormat = (value) => {
+    if (value === 1) {
+      return "Drunk with 100% certainty"
+    } else if (value === 0) {
+      return "Sober with 100% certainty"
+    } else {
+      return "Most likely sober"
+    }
+  }
+
+
+  const renderHistory = () => {
+    if (typeof(Storage) !== "undefined") {
+      var itemCount = localStorage.length;
+      var history = [];
+      for (var i = 0; i < itemCount; i++) {
+          var key = localStorage.key(i);
+          if(key.startsWith("chakra")) continue;
+          var value = localStorage.getItem(key);
+          history.push({key, value});
+      }
+
+
+      return (
+        <Box>
+          <Text pt="24px">History: </Text>
+          {history.map(({key, value}) => {
+            return (
+              <Text pt="24px">{moment(parseInt(key)).fromNow()} {getDrunkTextFormat(value)}</Text>
+            )
+          })}
+        </Box>
+      )
+    } else {
+      console.log("localStorage spadl z rowerka");
+    }
+  }
 
   const [myVar, setMyVar] = useState('');
 
@@ -116,11 +153,7 @@ function App() {
           //     var value = localStorage.getItem(key);
           //     console.log("Klucz: " + key + ", Wartość: " + value);
           // }
-          if (parsed == 1) {
-            setMyVar("Pijany jak bela");
-          } else {
-            setMyVar("Chyba trzezwy chlopak")
-          }
+          setMyVar(getDrunkTextFormat(parsed));
 
         } else {
           console.log("localStorage spadl z rowerka");
@@ -130,6 +163,7 @@ function App() {
       }
     } catch (error) {
       console.log("error!!!");
+      setMyVar("No face detected");
       console.log(error);
       setImg(null)
     }
@@ -210,14 +244,14 @@ function App() {
                   fontWeight="bold"
                   color="purple.700"
                 >
-                  Are you drunk???
+                  BeSober
                 </Text>
               </Flex>
               <FormControl>
                 <FormLabel>
                   Add your drunk/sober photo here to find out NOW!!!
                 </FormLabel>
-                <Input
+                {/* <Input
                   borderWidth="0px"
                   type="file"
                   onChange={(e) => {
@@ -227,7 +261,7 @@ function App() {
 
                     setImg(URL.createObjectURL(e.target.files[0]));
                   }}
-                />
+                /> */}
 
                 {img ? 
                 <Image src={img} alt="drunk" height={240} width={320} /> :  
@@ -246,14 +280,18 @@ function App() {
                 </FormHelperText>
 
               </FormControl>
-              <Button
+
+
+              {renderHistory()}
+
+              {/* <Button
                 mt="24px"
                 onClick={() => {
                   submitFormWithInput();
                 }}
               >
                 Submit
-              </Button>
+              </Button> */}
             </Box>
           </>
         )}
