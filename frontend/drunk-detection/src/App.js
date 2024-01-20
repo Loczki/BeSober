@@ -247,7 +247,7 @@ function App() {
             </Flex>
             <FormControl mt="4">
               <FormLabel>
-                Add your drunk/sober photo here to find out NOW!!!
+                Take picture of your face to check if you are drunk
               </FormLabel>
               {img ? (
                 <Image
