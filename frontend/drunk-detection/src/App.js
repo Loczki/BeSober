@@ -46,6 +46,7 @@ function App() {
     submitForm(input);
   };
 
+  const [myVar, setMyVar] = useState('Początkowa wartość');
 
   const submitForm = async (file) => {
     const formData = new FormData();
@@ -78,13 +79,19 @@ function App() {
           localStorage.setItem(new Date().getTime(), parsed)
 
           // wypisywanie calego
-          console.log("Caly localStorage:")
-          var itemCount = localStorage.length;
-          for (var i = 0; i < itemCount; i++) {
-              var key = localStorage.key(i);
-              var value = localStorage.getItem(key);
-              console.log("Klucz: " + key + ", Wartość: " + value);
+          // console.log("Caly localStorage:")
+          // var itemCount = localStorage.length;
+          // for (var i = 0; i < itemCount; i++) {
+          //     var key = localStorage.key(i);
+          //     var value = localStorage.getItem(key);
+          //     console.log("Klucz: " + key + ", Wartość: " + value);
+          // }
+          if (parsed == 1) {
+            setMyVar("Pijany jak bela");
+          } else {
+            setMyVar("Chyba trzezwy chlopak")
           }
+
         } else {
           console.log("localStorage spadl z rowerka");
         }
@@ -197,8 +204,9 @@ function App() {
                   capture()
                 }}>Capture photo</Button>
                 <FormHelperText>
-                  Your data is safe with us ;&#41;
+                  {myVar}
                 </FormHelperText>
+
               </FormControl>
               <Button
                 mt="24px"
