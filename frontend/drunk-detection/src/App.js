@@ -72,7 +72,7 @@ function App() {
 
       return (
         <Box>
-          <Text pt="24px">History: </Text>
+          <Text pt="24px">History</Text>
           {history.sort((a,b) => b.key - a.key).slice(0, 5).map(({key, value}) => {
             return (
               <Text pt="24px">{moment(parseInt(key)).fromNow()} {getDrunkTextFormat(value)}</Text>
@@ -261,7 +261,7 @@ function App() {
               <Button mt="4" onClick={capture} style={{color: "black"}}>
                 Capture photo
               </Button>
-              <FormHelperText mt="2" fontSize="lg">
+              <FormHelperText mt="2" fontSize="xl" style={{color: "white"}}>
                 {myVar}
               </FormHelperText>
             </FormControl>
