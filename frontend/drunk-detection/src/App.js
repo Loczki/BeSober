@@ -235,29 +235,19 @@ function App() {
             color="white"
           >
             <Flex align="center" flexDirection="column">
-              <Badge colorScheme="purple">ATTENTION</Badge>
+            
               <Text
                 mt="2"
                 textTransform="uppercase"
-                fontSize="md"
+                fontSize="xl"
                 fontWeight="bold"
               >
                 BeSober
               </Text>
             </Flex>
             <FormControl mt="4">
-              <FormLabel>
-                Take picture of your face to check if you are drunk
-              </FormLabel>
-              {img ? (
-                <Image
-                  src={img}
-                  alt="drunk"
-                  height={310}
-                  width={520}
-                  borderradius="4px"
-                />
-              ) : (
+            
+        
                 <Webcam  
                 height={240}
                 ref={webcamRef}
@@ -267,8 +257,8 @@ function App() {
                 mx="auto" // Dodane mx="auto" dla centrowania kamery
                 display="block" // Dodane display="block" dla poprawnego centrowania
                 />
-              )}
-              <Button mt="4" onClick={capture}>
+              
+              <Button mt="4" onClick={capture} style={{color: "black"}}>
                 Capture photo
               </Button>
               <FormHelperText mt="2" fontSize="lg">
