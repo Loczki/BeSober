@@ -3,3 +3,6 @@
 2024.01.20 13:29:56 WARN  no build tool detected in workspace 'C:\Users\Admin\Desktop\BeSober'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
 sty 20, 2024 1:33:52 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTrace
+2024.01.20 20:00:15 INFO  Shutting down server
+2024.01.20 20:00:15 INFO  shutting down Metals
+2024.01.20 20:00:15 INFO  Exiting server
