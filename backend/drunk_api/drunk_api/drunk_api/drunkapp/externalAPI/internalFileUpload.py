@@ -40,4 +40,5 @@ def face_plus_plus_analysis(encodedImage):
 
     # extracting response text
     pastebin_url2 = metricsR.text
+    
     return pastebin_url2

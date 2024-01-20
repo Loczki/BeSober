@@ -43,26 +43,6 @@ function App() {
         const data = await response.json();
         const parsed = JSON.parse(data.success);
         console.log(parsed);
-        setResults(parsed?.faces[0]?.attributes);
-        setResponse(data?.success);
-        console.log(JSON.stringify(parsed));
-
-        const drunkResponse = await fetch(
-          `${process.env.REACT_APP_DRUNK_API_URL}api/check_drunk/`,
-          {
-            method: "POST",
-            body: parsed,
-          }
-        );
-        if (drunkResponse) {
-          console.log("================");
-          console.log(drunkResponse);
-          const data = await drunkResponse.json();
-          const parsed = JSON.parse(data.success);
-          console.log(parsed);
-          setResultsDrunk(data.success);
-          setResponseDrunk(data.success);
-        }
         // setResultsDrunk(Math.random());
       }
     } catch (error) {

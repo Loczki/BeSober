@@ -8,9 +8,11 @@ import tensorflow as tf
 
 
 def are_you_drunk(input_json):
-    print(input_json)
-    print(type(input_json))
-    input_json = json.loads(json.loads(input_json))
+    # print(test_input)
+    # print("TYP KURWA")
+    # print(type(test_input))
+    # input_json =json.loads(test_input)
+    print("Type parsed json: " + str(type(input_json)))
     print("TEST KURWA FACES CO JEST")
     print(input_json['faces'])
     types = ['landmark', 'attributes']
@@ -27,10 +29,10 @@ def are_you_drunk(input_json):
     def format_row_new(set):
         result = []
         for type in types:
-            print("MODULE: " + set)
+            #print("MODULE: " + set)
             ##print keys of the dict
-            print(set['faces'][0][type].keys())        
-            print(set['faces'][0][type])
+            #print(set['faces'][0][type].keys())        
+           # print(set['faces'][0][type])
             for metric in set['faces'][0][type]:
                 if isinstance(set['faces'][0][type][metric], dict):
                     for v in set['faces'][0][type][metric]:

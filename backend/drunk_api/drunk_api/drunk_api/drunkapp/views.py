@@ -67,8 +67,11 @@ class SubmitImage(APIView):
                 with file.open("rb") as img_file:
                     encodedImage = base64.b64encode(img_file.read())
                     data = face_plus_plus_analysis(encodedImage)
+                    ##convert data to json
+                    data = json.loads(data)
+                    drunk_res = are_you_drunk(data)
                 return Response({
-                    "success": data
+                    "success": drunk_res,
                 })
         else:
             return Response("Image required!", 400)
@@ -90,10 +93,11 @@ class CheckDrunk(APIView):
         """
         to submit a json
         """
-        body_unicode = request.body.decode('utf-8')
-        body_data = json.dumps(body_unicode)
+        #body_unicode = request.body.decode('utf-8')
+        ##convert request body to json
+        body_data = json.loads(request.body)
         if request and request.body:
-            print(body_data)
+            #print(body_data)
             return Response({"success":  are_you_drunk(body_data)})
             # are_you_drunk(body_data)
             #  round(random.uniform(0, 1.000), 2)
