@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Button, ChakraProvider } from "@chakra-ui/react";
 import {
   Center,
@@ -13,17 +13,44 @@ import {
   Flex,
   Image,
 } from "@chakra-ui/react";
+import Webcam from "react-webcam";
+
+function dataURLtoFile(dataurl, filename) {
+  var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[arr.length - 1]), 
+      n = bstr.length, 
+      u8arr = new Uint8Array(n);
+  while(n--){
+      u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, {type:mime});
+}
+
 
 function App() {
   const [input, setInput] = useState();
   const [response, setResponse] = useState();
+  const webcamRef = useRef(null);
   const [results, setResults] = useState();
   const [resultsDrunk, setResultsDrunk] = useState();
   const [responseDrunk, setResponseDrunk] = useState();
 
-  const submitForm = async () => {
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    //console.log(imageSrc)
+    submitForm(dataURLtoFile(imageSrc, 'image.jpg'));
+  }, [webcamRef]);
+
+  const submitFormWithInput = async () => {
+    submitForm(input);
+  };
+
+
+  const submitForm = async (file) => {
     const formData = new FormData();
-    formData.append("file", input);
+    console.log("FILE", file)
+    formData.append("file", file);
 
     try {
       console.log(
@@ -43,6 +70,7 @@ function App() {
         const data = await response.json();
         const parsed = JSON.parse(data.success);
         console.log(parsed);
+        localStorage.setItem("results", JSON.stringify(parsed));
         // setResultsDrunk(Math.random());
       }
     } catch (error) {
@@ -110,60 +138,6 @@ function App() {
           </>
         ) : (
           <>
-            <Image
-              src="IMG_0305.jpg"
-              w="50%"
-              h="33%"
-              top={0}
-              left={0}
-              position="absolute"
-              zIndex={-2}
-            />
-            <Image
-              src="IMG_0305.jpg"
-              w="50%"
-              h="34%"
-              pos="50%"
-              left={0}
-              position="absolute"
-              zIndex={-2}
-            />
-            <Image
-              src="IMG_0305.jpg"
-              w="50%"
-              h="33%"
-              bottom={0}
-              left={0}
-              position="absolute"
-              zIndex={-2}
-            />
-            <Image
-              src="IMG_0305.jpg"
-              w="50%"
-              h="33%"
-              top={0}
-              right={0}
-              position="absolute"
-              zIndex={-2}
-            />
-            <Image
-              src="IMG_0305.jpg"
-              w="50%"
-              h="34%"
-              pos="50%"
-              right={0}
-              position="absolute"
-              zIndex={-2}
-            />
-            <Image
-              src="IMG_0305.jpg"
-              w="50%"
-              h="33%"
-              bottom={0}
-              right={0}
-              position="absolute"
-              zIndex={-2}
-            />
             <Box
               p="10"
               maxW="520px"
@@ -196,6 +170,16 @@ function App() {
                     setInput(e.target.files[0]);
                   }}
                 />
+
+                <Webcam
+                  height={240}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                  width={320}
+                />
+                <Button onClick={() => {
+                  capture()
+                }}>Capture photo</Button>
                 <FormHelperText>
                   Your data is safe with us ;&#41;
                 </FormHelperText>
@@ -203,7 +187,7 @@ function App() {
               <Button
                 mt="24px"
                 onClick={() => {
-                  submitForm();
+                  submitFormWithInput();
                 }}
               >
                 Submit

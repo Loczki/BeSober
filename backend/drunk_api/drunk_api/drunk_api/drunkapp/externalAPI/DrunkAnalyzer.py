@@ -12,9 +12,9 @@ def are_you_drunk(input_json):
     # print("TYP KURWA")
     # print(type(test_input))
     # input_json =json.loads(test_input)
-    print("Type parsed json: " + str(type(input_json)))
-    print("TEST KURWA FACES CO JEST")
-    print(input_json['faces'])
+    #print("Type parsed json: " + str(type(input_json)))
+    #print("TEST KURWA FACES CO JEST")
+    #print(input_json['faces'])
     types = ['landmark', 'attributes']
     mask = ['headpose']
 
