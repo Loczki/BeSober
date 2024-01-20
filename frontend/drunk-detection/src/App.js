@@ -30,6 +30,7 @@ function dataURLtoFile(dataurl, filename) {
 
 function App() {
   const [input, setInput] = useState();
+  const [img, setImg] = useState();
   const [response, setResponse] = useState();
   const webcamRef = useRef(null);
   const [results, setResults] = useState();
@@ -38,7 +39,8 @@ function App() {
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    //console.log(imageSrc)
+    
+    setImg(imageSrc);
     submitForm(dataURLtoFile(imageSrc, 'image.jpg'));
   }, [webcamRef]);
 
@@ -95,6 +97,8 @@ function App() {
         } else {
           console.log("localStorage spadl z rowerka");
         }
+
+        setImg(null);
       }
     } catch (error) {
       console.log("error!!!");
@@ -191,15 +195,20 @@ function App() {
                     console.log(e);
                     console.log(e.target.files[0]);
                     setInput(e.target.files[0]);
+
+                    setImg(URL.createObjectURL(e.target.files[0]));
                   }}
                 />
 
+                {img ? 
+                <Image src={img} alt="drunk" height={240} width={320} /> :  
                 <Webcam
                   height={240}
                   ref={webcamRef}
                   screenshotFormat="image/jpeg"
                   width={320}
                 />
+}
                 <Button onClick={() => {
                   capture()
                 }}>Capture photo</Button>
