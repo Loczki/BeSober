@@ -42,8 +42,25 @@ function App() {
         console.log(response);
         const data = await response.json();
         const parsed = JSON.parse(data.success);
+        console.log("Wynik aktualny:")
         console.log(parsed);
-        // setResultsDrunk(Math.random());
+
+        if (typeof(Storage) !== "undefined") {
+          // dodawanie
+          new Date().getTime();
+          localStorage.setItem(new Date().getTime(), parsed)
+
+          // wypisywanie calego
+          console.log("Caly localStorage:")
+          var itemCount = localStorage.length;
+          for (var i = 0; i < itemCount; i++) {
+              var key = localStorage.key(i);
+              var value = localStorage.getItem(key);
+              console.log("Klucz: " + key + ", Wartość: " + value);
+          }
+        } else {
+          console.log("localStorage spadl z rowerka");
+        }
       }
     } catch (error) {
       console.log("error!!!");
