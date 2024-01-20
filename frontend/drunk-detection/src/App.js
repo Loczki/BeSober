@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button, ChakraProvider } from "@chakra-ui/react";
 import {
   Center,
@@ -48,7 +48,35 @@ function App() {
     submitForm(input);
   };
 
-  const [myVar, setMyVar] = useState('Początkowa wartość');
+  const [myVar, setMyVar] = useState('');
+
+  useEffect(() => {
+    // Ustawienie opóźnienia na 1 minutę (60 000 milisekund)
+    const delay = 60000;
+
+    // Ustawienie timera, który wyświetli powiadomienie po upływie opóźnienia
+    const notificationTimer = setTimeout(() => {
+      showNotification();
+    }, delay);
+
+    // Wyczyszczenie timera, jeśli komponent zostanie odmontowany przed upływem minuty
+    return () => clearTimeout(notificationTimer);
+  }, []);
+
+  const showNotification = () => {
+    // Sprawdź, czy przeglądarka obsługuje powiadomienia
+    if ('Notification' in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          // Wyświetl powiadomienie
+          new Notification('Masz 5 minut na wysłanie zdjęcia', {
+            body: 'Wyślij powiadomienie BeSober',
+            icon: './../public/logo.jpg', // Opcjonalna ścieżka do ikony
+          });
+        }
+      });
+    }
+  }
 
   const submitForm = async (file) => {
     const formData = new FormData();
