@@ -154,7 +154,6 @@ function App() {
           //     console.log("Klucz: " + key + ", Wartość: " + value);
           // }
           setMyVar(getDrunkTextFormat(parsed));
-          renderHistory()
 
         } else {
           console.log("localStorage spadl z rowerka");
@@ -171,130 +170,113 @@ function App() {
   };
 
   return (
+
     <ChakraProvider>
       <Center h="100vh">
         {response && results ? (
-          <>
-            <Box
-              p="10"
-              maxW="520px"
-              maxH="420px"
-              borderWidth="1px"
-              background="white"
-              borderRadius="4px"
-            >
-              <Flex align="baseline" flexDirection="column">
-                <Badge colorScheme="purple" fontSize="lg">
-                  RESULTS:
-                </Badge>
-                <Text
-                  ml={2}
-                  textTransform="uppercase"
-                  fontSize="lg"
-                  fontWeight="bold"
-                  color="purple.700"
-                >
-                  {resultsDrunk > 0.5
-                    ? "YOU ARE DRUNK!!!"
-                    : "YOU ARE NOT DRUNK"}
-                </Text>
-                <Text pt="34px">
-                  Your drunk score:
-                  {resultsDrunk}
-                </Text>
-                <Text pt="24px">Age: {results.age.value}</Text>
-                <Text pt="24px">
-                  Female Beauty Score: {results.beauty.female_score}
-                </Text>
-                <Text pt="24px">
-                  Male Beauty Score: {results.beauty.male_score}
-                </Text>
-                <Text pt="24px">Gender: {results.gender.value}</Text>
-                <Text pt="24px">Sadness: {results.emotion.sadness}</Text>
-                <Text pt="24px">Disgust: {results.emotion.disgust}</Text>
-                <Text pt="24px">Anger: {results.emotion.anger}</Text>
-                <Text pt="24px">Surprise: {results.emotion.surprise}</Text>
-                <Text pt="24px">Fear: {results.emotion.fear}</Text>
-                <Text pt="24px">Happiness: {results.emotion.happiness}</Text>
-                <Button
-                  mt="24px"
-                  onClick={() => {
-                    setResponse(null);
-                  }}
-                >
-                  Reset
-                </Button>
-              </Flex>
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box
-              p="10"
-              maxW="520px"
-              borderWidth="1px"
-              background="white"
-              borderRadius="4px"
-            >
-              <Flex align="baseline" mt={2}>
-                <Badge colorScheme="purple">ATTENTION</Badge>
-                <Text
-                  ml={2}
-                  textTransform="uppercase"
-                  fontSize="sm"
-                  fontWeight="bold"
-                  color="purple.700"
-                >
-                  BeSober
-                </Text>
-              </Flex>
-              <FormControl>
-                <FormLabel>
-                  Add your drunk/sober photo here to find out NOW!!!
-                </FormLabel>
-                {/* <Input
-                  borderWidth="0px"
-                  type="file"
-                  onChange={(e) => {
-                    console.log(e);
-                    console.log(e.target.files[0]);
-                    setInput(e.target.files[0]);
-
-                    setImg(URL.createObjectURL(e.target.files[0]));
-                  }}
-                /> */}
-
-                {img ? 
-                <Image src={img} alt="drunk" height={240} width={320} /> :  
-                <Webcam
-                  height={240}
-                  ref={webcamRef}
-                  screenshotFormat="image/jpeg"
-                  width={320}
-                />
-}
-                <Button onClick={() => {
-                  capture()
-                }}>Capture photo</Button>
-                <FormHelperText>
-                  {myVar}
-                </FormHelperText>
-
-              </FormControl>
-
-
-              {renderHistory()}
-
-              {/* <Button
-                mt="24px"
+          <Box
+            p="10"
+            maxW="520px"
+            maxH="420px"
+            borderWidth="1px"
+            borderradius="4px"
+            textAlign="center"
+            bgGradient="linear(to-b, #4F3BA9, #CB429F)"
+            boxShadow="lg"
+            color="white"
+          >
+            <Flex align="center" flexDirection="column">
+              <Badge colorScheme="purple" fontSize="lg">
+                RESULTS:
+              </Badge>
+              <Text
+                mt="2"
+                textTransform="uppercase"
+                fontSize="lg"
+                fontWeight="bold"
+              >
+                {resultsDrunk > 0.5 ? "YOU ARE DRUNK!!!" : "YOU ARE NOT DRUNK"}
+              </Text>
+              <Text pt="4" fontSize="md">
+                Your drunk score:
+                {resultsDrunk}
+              </Text>
+              <Text pt="4">Age: {results.age.value}</Text>
+              <Text pt="4">
+                Female Beauty Score: {results.beauty.female_score}
+              </Text>
+              <Text pt="4">Male Beauty Score: {results.beauty.male_score}</Text>
+              <Text pt="4">Gender: {results.gender.value}</Text>
+              <Text pt="4">Sadness: {results.emotion.sadness}</Text>
+              <Text pt="4">Disgust: {results.emotion.disgust}</Text>
+              <Text pt="4">Anger: {results.emotion.anger}</Text>
+              <Text pt="4">Surprise: {results.emotion.surprise}</Text>
+              <Text pt="4">Fear: {results.emotion.fear}</Text>
+              <Text pt="4">Happiness: {results.emotion.happiness}</Text>
+              <Button
+                mt="4"
                 onClick={() => {
-                  submitFormWithInput();
+                  setResponse(null);
                 }}
               >
-                Submit
-              </Button> */}
-            </Box>
-          </>
+                Reset
+              </Button>
+            </Flex>
+          </Box>
+        ) : (
+          <Box
+            p="10"
+            maxW="520px"
+            borderWidth="1px"
+            borderradius="4px"
+            textAlign="center"
+            bgGradient="linear(to-b, #4F3BA9, #CB429F)"
+            boxShadow="lg"
+            color="white"
+          >
+            <Flex align="center" flexDirection="column">
+              <Badge colorScheme="purple">ATTENTION</Badge>
+              <Text
+                mt="2"
+                textTransform="uppercase"
+                fontSize="md"
+                fontWeight="bold"
+              >
+                BeSober
+              </Text>
+            </Flex>
+            <FormControl mt="4">
+              <FormLabel>
+                Add your drunk/sober photo here to find out NOW!!!
+              </FormLabel>
+              {img ? (
+                <Image
+                  src={img}
+                  alt="drunk"
+                  height={310}
+                  width={520}
+                  borderradius="4px"
+                />
+              ) : (
+                <Webcam  
+                height={240}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                width={520}
+                borderradius="4px"
+                mx="auto" // Dodane mx="auto" dla centrowania kamery
+                display="block" // Dodane display="block" dla poprawnego centrowania
+                />
+              )}
+              <Button mt="4" onClick={capture}>
+                Capture photo
+              </Button>
+              <FormHelperText mt="2" fontSize="lg">
+                {myVar}
+              </FormHelperText>
+            </FormControl>
+            {renderHistory()}
+          </Box>
         )}
       </Center>
     </ChakraProvider>
